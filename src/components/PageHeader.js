@@ -1,7 +1,9 @@
 import { ArrowBack } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import logoTogetherWhite from "../assets/logo_together_white.svg";
 
 export default function PageHeader({ isHaveBack }) {
   const navigate = useNavigate();
@@ -29,21 +31,28 @@ export default function PageHeader({ isHaveBack }) {
         </div>
       )}
 
-      <h1
+      <div
         style={{
-          color: "#FFF",
-          margin: "0px 0px 8px",
+          width: "150px",
+          height: "35px",
+          backgroundImage: `url(${logoTogetherWhite})`,
+          backgroundSize: "cover",
+          margin: "0 auto",
         }}
-      >
-        togethër
-      </h1>
-      <h6
+      />
+      <Typography
+        variant="h6"
         style={{
           color: "#FFF",
+          fontSize: "0.875rem",
+          lineHeight: "1.625",
+          fontWeight: "400",
+          marginTop: "35px",
+          fontFamily: "'Plus Jakarta Display', Helvetica, Arial, sans-serif",
         }}
       >
         COMMUNITY POWERED COMMERCE
-      </h6>
+      </Typography>
       <div style={{ height: "40px" }} />
     </div>
   );

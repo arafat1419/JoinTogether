@@ -8,7 +8,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
-import "../assets/swiper-pagination.css";
 import PageFooter from "../components/PageFooter";
 import PageHeader from "../components/PageHeader";
 

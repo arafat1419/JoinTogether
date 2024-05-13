@@ -1,8 +1,13 @@
-import { Box, Container, Grid, ThemeProvider, colors } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  ThemeProvider,
+  Typography,
+  colors,
+} from "@mui/material";
 
 import backgroundImage from "../assets/background-cover.png";
-import PageHeader from "../components/PageHeader";
-import PageFooter from "../components/PageFooter";
 
 export default function MainPage({ children }) {
   return (
@@ -35,21 +40,35 @@ export default function MainPage({ children }) {
             }}
           >
             <Box display={"flex flex-col"}>
-              <h6
+              <Typography
+                variant="h6"
                 style={{
                   color: "#FFF",
+                  fontSize: "1.25rem",
+                  lineHeight: "1.625",
+                  fontWeight: "500",
+                  letterSpacing: "8px",
+                  fontFamily:
+                    "'Plus Jakarta Display', Helvetica, Arial, sans-serif",
                 }}
               >
                 COMMUNITY POWERED COMMERCE
-              </h6>
-              <h1
+              </Typography>
+              <Typography
+                variant="h2"
+                marginTop={"10px"}
                 style={{
                   color: "#FFF",
-                  margin: "0px 0px 8px",
+                  fontSize: "2.25rem",
+                  lineHeight: "1.3",
+                  fontWeight: "700",
+                  letterSpacing: "8px",
+                  fontFamily:
+                    "'Plus Jakarta Display', Helvetica, Arial, sans-serif",
                 }}
               >
                 Togethër
-              </h1>
+              </Typography>
             </Box>
           </Grid>
           <Grid

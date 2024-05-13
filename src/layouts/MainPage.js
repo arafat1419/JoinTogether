@@ -61,11 +61,7 @@ export default function MainPage({ children }) {
             marginTop={"5rem"}
             marginBottom={"5rem"}
           >
-            <Box width="30vw">
-              <PageHeader />
-              {children}
-              <PageFooter />
-            </Box>
+            <Box>{children}</Box>
           </Grid>
         </Grid>
       </Box>

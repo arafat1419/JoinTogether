@@ -12,15 +12,21 @@ import PageFooter from "../components/PageFooter";
 import PageHeader from "../components/PageHeader";
 
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext";
 
 SwiperCore.use([Autoplay, Pagination]);
 
 export default function PlanPage() {
   const navigate = useNavigate();
+  const { isLoggedIn, login, logout } = useAuth();
 
   const handleButtonClick = () => {
     // Navigate to the "register" route when the button is clicked
-    navigate("/register");
+    if (isLoggedIn) {
+      logout();
+    } else {
+      navigate("/register");
+    }
   };
 
   return (
@@ -82,7 +88,7 @@ export default function PlanPage() {
           }}
           onClick={handleButtonClick}
         >
-          Login
+          {isLoggedIn ? "Log out" : "Login"}
         </Button>
       </Box>
       <PageFooter />

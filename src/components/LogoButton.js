@@ -1,7 +1,7 @@
 import { IconButton } from "@mui/material";
 import React from "react";
 
-export default function LogoButton({ children }) {
+export default function LogoButton({ onBtnClick, children }) {
   return (
     <IconButton
       style={{
@@ -13,6 +13,7 @@ export default function LogoButton({ children }) {
         width: "fit-content",
         height: "fit-content",
       }}
+      onClick={onBtnClick}
     >
       <div
         style={{

@@ -5,8 +5,18 @@ import { Alert, Box, Card, Icon, IconButton, Typography } from "@mui/material";
 import { Apple, Google } from "@mui/icons-material";
 import LogoButton from "../components/LogoButton";
 import IcMeteor from "../assets/IcMeteor";
+import { useAuth } from "../AuthContext";
+import { useNavigate } from "react-router-dom";
+import { ROUTE_PLAN } from "../utility/routePage";
 
 export default function RegisterPage() {
+  const navigate = useNavigate();
+  const { isLoggedIn, login, logout } = useAuth();
+
+  const handleLoginClick = () => {
+    login();
+    navigate(ROUTE_PLAN);
+  };
   return (
     <div>
       <PageHeader isHaveBack={true} />
@@ -54,13 +64,13 @@ export default function RegisterPage() {
                 gap: "16px",
               }}
             >
-              <LogoButton>
+              <LogoButton onBtnClick={handleLoginClick}>
                 <Apple />
               </LogoButton>
-              <LogoButton>
+              <LogoButton onBtnClick={handleLoginClick}>
                 <Google />
               </LogoButton>
-              <LogoButton>
+              <LogoButton onBtnClick={handleLoginClick}>
                 <IcMeteor />
               </LogoButton>
             </div>

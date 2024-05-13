@@ -13,6 +13,7 @@ import PageHeader from "../components/PageHeader";
 
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
+import { ROUTE_CONTINUE, ROUTE_REGISTER } from "../utility/routePage";
 
 SwiperCore.use([Autoplay, Pagination]);
 
@@ -20,12 +21,21 @@ export default function PlanPage() {
   const navigate = useNavigate();
   const { isLoggedIn, login, logout } = useAuth();
 
-  const handleButtonClick = () => {
+  const handleLoginClick = () => {
     // Navigate to the "register" route when the button is clicked
     if (isLoggedIn) {
       logout();
     } else {
-      navigate("/register");
+      navigate(ROUTE_REGISTER);
+    }
+  };
+
+  const handleOrderClick = () => {
+    // Navigate to the "register" route when the button is clicked
+    if (isLoggedIn) {
+      navigate(ROUTE_CONTINUE);
+    } else {
+      navigate(ROUTE_REGISTER);
     }
   };
 
@@ -58,16 +68,16 @@ export default function PlanPage() {
           }}
         >
           <SwiperSlide>
-            <CardPlan title={"card 1"} />
+            <CardPlan title={"card 1"} onPreOrderClick={handleOrderClick} />
           </SwiperSlide>
           <SwiperSlide>
-            <CardPlan title={"card 2"} />
+            <CardPlan title={"card 2"} onPreOrderClick={handleOrderClick} />
           </SwiperSlide>
           <SwiperSlide>
-            <CardPlan title={"card 3"} />
+            <CardPlan title={"card 3"} onPreOrderClick={handleOrderClick} />
           </SwiperSlide>
           <SwiperSlide>
-            <CardPlan title={"card 4"} />
+            <CardPlan title={"card 4"} onPreOrderClick={handleOrderClick} />
           </SwiperSlide>
           <div style={{ height: "46px" }} />
         </Swiper>
@@ -86,7 +96,7 @@ export default function PlanPage() {
             fontWeight: "700",
             width: "444px",
           }}
-          onClick={handleButtonClick}
+          onClick={handleLoginClick}
         >
           {isLoggedIn ? "Log out" : "Login"}
         </Button>

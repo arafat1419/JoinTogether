@@ -1,10 +1,15 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainPage from "./layouts/MainPage";
-import { ROUTE_PLAN, ROUTE_REGISTER } from "./utility/routePage";
+import {
+  ROUTE_CONTINUE,
+  ROUTE_PLAN,
+  ROUTE_REGISTER,
+} from "./utility/routePage";
 import PlanPage from "./layouts/PlanPage";
 import RegisterPage from "./layouts/RegisterPage";
 import { AuthProvider } from "./AuthContext";
+import IdentityPage from "./layouts/IdentityPage";
 
 function App() {
   return (
@@ -26,6 +31,14 @@ function App() {
               element={
                 <AuthProvider>
                   <RegisterPage />
+                </AuthProvider>
+              }
+            />
+            <Route
+              path={ROUTE_CONTINUE}
+              element={
+                <AuthProvider>
+                  <IdentityPage />
                 </AuthProvider>
               }
             />

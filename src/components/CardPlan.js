@@ -9,7 +9,7 @@ import {
 import React from "react";
 import backgroundImage from "../assets/background-cover.png";
 
-export default function CardPlan({ title }) {
+export default function CardPlan({ title, onPreOrderClick }) {
   return (
     <Card
       style={{
@@ -108,6 +108,7 @@ export default function CardPlan({ title }) {
           minHeight: "2.5rem",
           fontWeight: "700",
         }}
+        onClick={onPreOrderClick}
       >
         Pre-Order Now
       </Button>

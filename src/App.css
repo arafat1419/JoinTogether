@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  overflow: hidden;
 }
 
 .App-logo {
@@ -35,4 +36,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.swiper-pagination-bullet {
+  background-color: red; /* Change bullet color */
+  width: 10px; /* Change bullet width */
+  height: 10px; /* Change bullet height */
+}
+
+.swiper-pagination-bullet.custom-bullet-active {
+  background-color: rgb(191, 255, 0); /* Change active bullet color */
 }

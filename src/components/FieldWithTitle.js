@@ -45,8 +45,9 @@ export default function FieldWithTitle({
         message = "Invalid email address";
         break;
       case "password":
-        isValid = value.length >= 8; // Example rule: minimum 8 characters
-        message = "Password must be at least 8 characters";
+        isValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/.test(value); // Minimum 8 characters, at least 1 uppercase, 1 lowercase, 1 symbol
+        message =
+          "Password must contains at least :\n- 8 characters\n- 1 uppercase letter\n- 1 lowercase letter\n- 1 symbol";
         break;
       case "phone":
         isValid = /^\+?[1-9]\d{1,14}$/.test(value); // Example rule: international phone numbers
@@ -145,10 +146,10 @@ export default function FieldWithTitle({
           onChange={handleChange}
           inputRef={inputRef}
           fullWidth
-          typ={type}
+          type={type}
         />
         <IconWrapper hasContent={Boolean(inputValue)} typing={typing}>
-          {Boolean(inputValue) ? <DoneRounded /> : <InfoOutlined />}
+          {Boolean(inputValue) && !error ? <DoneRounded /> : <InfoOutlined />}
         </IconWrapper>
       </InputContainer>
       {error && (
@@ -162,9 +163,15 @@ export default function FieldWithTitle({
             fontFamily: "'Plus Jakarta Display', Helvetica, Arial, sans-serif",
             fontWeight: "400",
             color: "red",
+            textAlign: "left",
           }}
         >
-          {errorMessage}
+          {errorMessage.split("\n").map((msg, index) => (
+            <React.Fragment key={index}>
+              {msg}
+              <br />
+            </React.Fragment>
+          ))}
         </Typography>
       )}
       <div style={{ marginBottom: "12px" }} />

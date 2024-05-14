@@ -1,22 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PageHeader from "../components/PageHeader";
 import PageFooter from "../components/PageFooter";
-import { Alert, Box, Card, Icon, IconButton, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  Card,
+  Icon,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { Apple, Google } from "@mui/icons-material";
 import LogoButton from "../components/LogoButton";
 import IcMeteor from "../assets/IcMeteor";
 import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_PLAN } from "../utility/routePage";
+import FieldWithTitle from "../components/FieldWithTitle";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
   const { isLoggedIn, login, logout } = useAuth();
 
-  const handleLoginClick = () => {
+  const [formState, setFormState] = useState({
+    phone: { value: "", isError: true },
+    password: { value: "", isError: true },
+  });
+
+  const handleInputChange = (fieldName, value, isError) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      [fieldName]: {
+        value: value,
+        isError: isError,
+      },
+    }));
+  };
+
+  const isFormValid = () => {
+    return Object.values(formState).every((field) => !field.isError);
+  };
+
+  const handleLoginClick = async () => {
     login();
     navigate(ROUTE_PLAN);
   };
+
   return (
     <div>
       <PageHeader isHaveBack={true} />
@@ -45,14 +74,50 @@ export default function RegisterPage() {
               padding: "45px",
             }}
           >
+            <FieldWithTitle
+              title={"Phone Number"}
+              onInputChange={(value, isError) =>
+                handleInputChange("phone", value, isError)
+              }
+              value={formState.phone.value}
+            />
+
+            <FieldWithTitle
+              title={"Password"}
+              type={"password"}
+              onInputChange={(value, isError) =>
+                handleInputChange("password", value, isError)
+              }
+              value={formState.password.value}
+            />
+
+            <Button
+              fullWidth
+              variant="filled"
+              style={{
+                marginTop: "24px",
+                borderRadius: "0.75rem",
+                color: "white",
+                background: "rgb(245, 54, 123)",
+                fontSize: "0.625rem",
+                minHeight: "2.5rem",
+                fontWeight: "700",
+              }}
+              disabled={!isFormValid()}
+              onClick={handleLoginClick}
+            >
+              Login
+            </Button>
+
             <Typography
               variant="body1"
               style={{
                 fontWeight: "700",
                 fontSize: "1.123rem",
               }}
+              marginTop={"40px"}
             >
-              Continue with
+              Or Continue with
             </Typography>
 
             <div

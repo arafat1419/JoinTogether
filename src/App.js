@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainPage from "./layouts/MainPage";
 import {
   ROUTE_CONTINUE,
+  ROUTE_MORE_INFO,
   ROUTE_PLAN,
   ROUTE_REGISTER,
 } from "./utility/routePage";
@@ -10,6 +11,7 @@ import PlanPage from "./layouts/PlanPage";
 import RegisterPage from "./layouts/RegisterPage";
 import { AuthProvider } from "./AuthContext";
 import IdentityPage from "./layouts/IdentityPage";
+import AddressPage from "./layouts/AddressPage";
 
 function App() {
   return (
@@ -39,6 +41,14 @@ function App() {
               element={
                 <AuthProvider>
                   <IdentityPage />
+                </AuthProvider>
+              }
+            />
+            <Route
+              path={ROUTE_MORE_INFO}
+              element={
+                <AuthProvider>
+                  <AddressPage />
                 </AuthProvider>
               }
             />

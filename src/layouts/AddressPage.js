@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import PageFooter from "../components/PageFooter";
-import { Box, Button, Card } from "@mui/material";
+import { Alert, Box, Button, Card, Snackbar, Typography } from "@mui/material";
 import FieldWithTitle from "../components/FieldWithTitle";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
-import { ROUTE_MORE_INFO, ROUTE_PLAN } from "../utility/routePage";
+import { ROUTE_PLAN } from "../utility/routePage";
 
-export default function IdentityPage() {
+export default function AddressPage() {
   const navigate = useNavigate();
   const { isLoggedIn, login, logout } = useAuth();
   const [formState, setFormState] = useState({
-    firstName: { value: "", isError: true },
-    lastName: { value: "", isError: true },
-    email: { value: "", isError: true },
+    addressOne: { value: "", isError: true },
+    addressTwo: { value: "", isError: false },
+    city: { value: "", isError: true },
+    states: { value: "", isError: true },
+    zip: { value: "", isError: true },
   });
+  const [showSnackbar, setShowSnackbar] = useState(false);
 
   const handleInputChange = (fieldName, value, isError) => {
     setFormState((prevState) => ({
@@ -28,6 +31,11 @@ export default function IdentityPage() {
 
   const isFormValid = () => {
     return Object.values(formState).every((field) => !field.isError);
+  };
+
+  const handleCloseSnackbar = () => {
+    setShowSnackbar(false);
+    navigate(ROUTE_PLAN);
   };
 
   return (
@@ -59,27 +67,57 @@ export default function IdentityPage() {
               width: "270px",
             }}
           >
+            <Typography
+              variant="lg"
+              style={{
+                display: "flex",
+                color: "#FFF",
+                fontSize: "1.125rem",
+                lineHeight: "1.625",
+                fontWeight: "700",
+                fontFamily:
+                  "'Plus Jakarta Display', Helvetica, Arial, sans-serif",
+                marginBottom: "24px",
+              }}
+            >
+              Billing & Shipping Address
+            </Typography>
+
             <FieldWithTitle
-              title={"First Name"}
+              title={"Address 1"}
               onInputChange={(value, isError) =>
-                handleInputChange("firstName", value, isError)
+                handleInputChange("addressOne", value, isError)
               }
-              value={formState.firstName.value}
+              value={formState.addressOne.value}
             />
             <FieldWithTitle
-              title={"Last Name"}
+              title={"Address 2"}
+              required={false}
               onInputChange={(value, isError) =>
-                handleInputChange("lastName", value, isError)
+                handleInputChange("addressTwo", value, isError)
               }
-              value={formState.lastName.value}
+              value={formState.addressTwo.value}
             />
             <FieldWithTitle
-              title={"Email"}
-              type={"email"}
+              title={"City"}
               onInputChange={(value, isError) =>
-                handleInputChange("email", value, isError)
+                handleInputChange("city", value, isError)
               }
-              value={formState.email.value}
+              value={formState.city.value}
+            />
+            <FieldWithTitle
+              title={"States"}
+              onInputChange={(value, isError) =>
+                handleInputChange("states", value, isError)
+              }
+              value={formState.states.value}
+            />
+            <FieldWithTitle
+              title={"Zip"}
+              onInputChange={(value, isError) =>
+                handleInputChange("zip", value, isError)
+              }
+              value={formState.zip.value}
             />
 
             <Button
@@ -95,11 +133,9 @@ export default function IdentityPage() {
                 fontWeight: "700",
               }}
               disabled={!isFormValid()}
-              onClick={() => {
-                navigate(ROUTE_MORE_INFO);
-              }}
+              onClick={() => setShowSnackbar(true)}
             >
-              Continue
+              PAY
             </Button>
 
             <Button
@@ -145,6 +181,17 @@ export default function IdentityPage() {
           </Box>
         </Card>
       </Box>
+      <Snackbar
+        open={showSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        message="Payment successful!"
+      >
+        <Alert onClose={handleCloseSnackbar} severity="success">
+          Payment successful!
+        </Alert>
+      </Snackbar>
       <PageFooter />
     </div>
   );
